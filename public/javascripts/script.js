@@ -60,14 +60,21 @@ $(function(){
       } else if ('joke' in entity) {
        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
        $('#pic').append('<img class="img-fluid pull-xs-center heboot" src="http://i.imgur.com/zgOt8dH.jpg" /> ')
-      } else if ('play' && 'artist' in entity) {
+      } else if ('play' in entity && 'artist' in entity) {
        var artist = response.outcomes[0].entities.artist[0].value
-       $('#r').append('<iframe src="https://embed.spotify.com/?uri=spotify:user:gorgonzolon:playlist:4T6FSZva3M8nZgHHNeRFi3" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>')
-
+       $.ajax({
+        method: "GET",
+        url:"https://api.spotify.com/v1/search?q="+ artist +"&type=artist"
+       }).done(function(res){
+        var uri = res.artists.items[0].uri
+        console.log(res.artists.items[0].uri)
+        $('#pic').append('<iframe src="https://embed.spotify.com/?uri=' + uri+ '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>')
+       })
 
       } else if ('song' in entity) {
-       $('#r').append('<iframe src="https://embed.spotify.com/?uri=spotify:user:gorgonzolon:playlist:4T6FSZva3M8nZgHHNeRFi3" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>')
 
+       $('#r').append('I love These')
+       $('#pic').append('<iframe src="https://embed.spotify.com/?uri=spotify:artist:3Sz7ZnJQBIHsXLUSo0OQtM" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>')
       }
       else {
        $('#r').append('whooops')
