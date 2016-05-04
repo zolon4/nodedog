@@ -8,8 +8,8 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-var server = process.env.PORT || 8080
 var app = express();
+var server = app.listen(process.env.PORT || 8080);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
