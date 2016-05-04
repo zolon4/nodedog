@@ -8,7 +8,7 @@ $(function(){
    })
  $('#form').keypress(function(e){
    var q = $('#form').val()
-   
+
    if(e.which == 13) {
     $('#r').html('')
     $('#pic').html('')
@@ -21,6 +21,7 @@ $(function(){
      dataType : 'jsonp',
      method: "POST",
      success: function(response) {
+      console.log(response)
 
       var entity = response.outcomes[0].entities
 
@@ -59,6 +60,14 @@ $(function(){
       } else if ('joke' in entity) {
        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
        $('#pic').append('<img class="img-fluid pull-xs-center heboot" src="http://i.imgur.com/zgOt8dH.jpg" /> ')
+      } else if ('play' && 'artist' in entity) {
+       var artist = response.outcomes[0].entities.artist[0].value
+       $('#r').append('<iframe src="https://embed.spotify.com/?uri=spotify:user:gorgonzolon:playlist:4T6FSZva3M8nZgHHNeRFi3" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>')
+
+
+      } else if ('song' in entity) {
+       $('#r').append('<iframe src="https://embed.spotify.com/?uri=spotify:user:gorgonzolon:playlist:4T6FSZva3M8nZgHHNeRFi3" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>')
+
       }
       else {
        $('#r').append('whooops')
