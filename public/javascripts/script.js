@@ -74,7 +74,7 @@ $(function(){
       } else if ('song' in entity) {
 
        $('#r').append('I love These')
-       $('#pic').append('<iframe src="https://embed.spotify.com/?uri=spotify:artist:3Sz7ZnJQBIHsXLUSo0OQtM" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>')
+       $('#pic').append('<iframe src="https://embed.spotify.com/?uri=spotify:user:gorgonzolon:playlist:4T6FSZva3M8nZgHHNeRFi3" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>')
       }
       else {
        $('#r').append('whooops')
