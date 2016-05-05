@@ -13,6 +13,8 @@ $(function(){
     $('#r').html('')
     $('#pic').html('')
     $('#meme').html('')
+    $('#form').blur();
+
     $.ajax({
      url: "https://api.wit.ai/message" ,
      data: {
@@ -48,7 +50,7 @@ $(function(){
            url: "https://maps.googleapis.com/maps/api/geocode/json?address="+ city+"&key=AIzaSyAHAR1gTNA7hxRl3zOMpWZswWJuAc0Idi4"
           }).done(function(response){
            console.log(response)
-           
+
            var lat = response.results[0].geometry.location.lat
            var lng = response.results[0].geometry.location.lng
            var city = response.results[0].formatted_address
