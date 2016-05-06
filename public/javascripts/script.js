@@ -11,6 +11,7 @@ $(document).ready(function() {
 
  $('#form').keypress(function(e){
   $('body').css('overflow-y','auto')
+  $('.wrapper').css('overflow-y','auto')
 
    var q = $('#form').val()
    if(e.which == 13) {
