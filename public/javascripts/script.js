@@ -2,6 +2,9 @@ $(function(){
 
 $(document).ready(function() {
  $("#form").animate({ marginTop: 0, opacity: 1 }, 1000, function(){
+  var helpers = ['try asking for "the weather in austin"', 'say "hello"', 'says "its dat boi"']
+  var helper = helpers[Math.floor(Math.random()*helpers.length)]
+  $('.helpers').append('<small class="text-muted">'+ helper + '</small>')
   $('.helpers').animate({opacity: 1},1500)
   })
  })
@@ -59,7 +62,6 @@ $(document).ready(function() {
        url:"https://api.spotify.com/v1/search?q="+ artist +"&type=artist"
       }).done(function(res){
        var uri = res.artists.items[0].uri
-       console.log(res.artists.items[0].uri)
         $('#r').css("margin-top", "1%")
         $('#pic').append('<iframe src="https://embed.spotify.com/?uri=' + uri+ '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>')
       })
@@ -79,7 +81,7 @@ $(document).ready(function() {
      else if ('contact' in entity) {
        var contactVal = response.outcomes[0].entities.contact[0].value
        $('#r').append('Hello ' + contactVal + '! I am updog')
-      } else if ('location' in entity){
+     } else if ('location' in entity){
        var city = response.outcomes[0].entities.location[0].value
         $.ajax({
            method: "GET",
