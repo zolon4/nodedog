@@ -2,10 +2,11 @@
 body {
  font-family: 'Montserrat', serif;
  overflow-x: hidden;
+ overflow-y: hidden;
+
 }
 .wrapper {
  overflow-x: hidden;
-
 }
 
 .form-control::-webkit-input-placeholder {
@@ -102,6 +103,7 @@ text-align: center;
  height: 100vh;
  background-image: url(/images/spec.png);
  background-repeat: repeat;
+
 
 }
 
