@@ -1,3 +1,4 @@
-##wut is updog
-### updog is my first attempt at making a bot
+ **updog** is a simple message bot built using wit.ai
+![image](/public/images/landing.png)
 ![image](/public/images/home.png)
+Check it out [datboi.com](http://datboi.com/ "Title").
