@@ -2,7 +2,7 @@ $(function(){
 
 $(document).ready(function() {
  $("#form").animate({ marginTop: 0, opacity: 1 }, 1000, function(){
-  var helpers = ['try asking for "the weather in austin"', 'say "hello"', 'says "its dat boi"']
+  var helpers = ['try asking for "the weather in austin"', 'try "hello"', 'try "its dat boi"']
   var helper = helpers[Math.floor(Math.random()*helpers.length)]
   $('.helpers').append('<small class="text-muted">'+ helper + '</small>')
   $('.helpers').animate({opacity: 1},1500)
