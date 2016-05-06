@@ -9,17 +9,6 @@ $(document).ready(function() {
   })
  })
 
- $('#meme-btn').on('click', function(){
-  $('#form').val('meme me')
- })
- $('#drake').on('click', function(){
-  $('#form').val('play drake')
- })
- $('#weather').on('click', function(){
-  $('#form').val('austin weather')
- })
-
-
  $('#form').keypress(function(e){
    var q = $('#form').val()
    if(e.which == 13) {
@@ -65,13 +54,17 @@ $(document).ready(function() {
         $('#r').css("margin-top", "1%")
         $('#pic').append('<iframe src="https://embed.spotify.com/?uri=' + uri+ '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>')
       })
-     } else if ('datboi' in entity) {
-      $('#r').append('oh shit whaddup')
+      } else if ('datboi' in entity) {
+       $('#r').append('oh shit whaddup')
 
-     } else if ('your' in entity) {
-      $('#r').append('I am updog')
+      } else if ('updog' in entity) {
+       $('#r').append('not much, wbu?')
 
-     } else if ('greeting' in entity) {
+      }
+      else if ('your' in entity) {
+       $('#r').append('I am updog')
+
+      } else if ('greeting' in entity) {
       $('#r').append('yes this is updog')
 
      } else if ('bork' in entity) {
@@ -81,6 +74,7 @@ $(document).ready(function() {
      else if ('contact' in entity) {
        var contactVal = response.outcomes[0].entities.contact[0].value
        $('#r').append('Hello ' + contactVal + '! I am updog')
+
      } else if ('location' in entity){
        var city = response.outcomes[0].entities.location[0].value
         $.ajax({
@@ -90,6 +84,7 @@ $(document).ready(function() {
            var lat = response.results[0].geometry.location.lat
            var lng = response.results[0].geometry.location.lng
            var city = response.results[0].formatted_address
+
            $.ajax({
             method: "GET",
             dataType: 'jsonp',
@@ -103,12 +98,15 @@ $(document).ready(function() {
            var responses = ['just hangin out', 'just chillin', 'not much', 'dank memes', 'my chances of being funded']
            var reply = responses[Math.floor(Math.random()*responses.length)];
            $('#r').append(reply)
+
           } else if ('joke' in entity) {
            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
            $('#pic').append('<img class="img-fluid pull-xs-center heboot" src="http://i.imgur.com/zgOt8dH.jpg" /> ')
+
           } else if ('song' in entity) {
            $('#r').append('I love These')
            $('#pic').append('<iframe src="https://embed.spotify.com/?uri=spotify:user:gorgonzolon:playlist:4T6FSZva3M8nZgHHNeRFi3" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>')
+
           }
           else {
           $('#r').append('whooops')
