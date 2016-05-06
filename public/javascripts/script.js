@@ -60,10 +60,23 @@ $(document).ready(function() {
       }).done(function(res){
        var uri = res.artists.items[0].uri
        console.log(res.artists.items[0].uri)
-       $('#r').css("margin-top", "1%")
-       $('#pic').append('<iframe src="https://embed.spotify.com/?uri=' + uri+ '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>')
+        $('#r').css("margin-top", "1%")
+        $('#pic').append('<iframe src="https://embed.spotify.com/?uri=' + uri+ '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>')
       })
-     } else if ('contact' in entity) {
+     } else if ('datboi' in entity) {
+      $('#r').append('oh shit whaddup')
+
+     } else if ('your' in entity) {
+      $('#r').append('I am updog')
+
+     } else if ('greeting' in entity) {
+      $('#r').append('yes this is updog')
+
+     } else if ('bork' in entity) {
+      $('#r').append('jesus you did me the really big frighten')
+
+     }
+     else if ('contact' in entity) {
        var contactVal = response.outcomes[0].entities.contact[0].value
        $('#r').append('Hello ' + contactVal + '! I am updog')
       } else if ('location' in entity){
@@ -72,12 +85,9 @@ $(document).ready(function() {
            method: "GET",
            url: "https://maps.googleapis.com/maps/api/geocode/json?address="+ city+"&key=AIzaSyAHAR1gTNA7hxRl3zOMpWZswWJuAc0Idi4"
           }).done(function(response){
-           console.log(response)
-
            var lat = response.results[0].geometry.location.lat
            var lng = response.results[0].geometry.location.lng
            var city = response.results[0].formatted_address
-
            $.ajax({
             method: "GET",
             dataType: 'jsonp',
@@ -86,8 +96,8 @@ $(document).ready(function() {
              var temp = response.currently.apparentTemperature
              $('#r').append("It's " + temp + "&deg; in " + city)
             })
-          })
-         } else if ('sup' in entity) {
+           })
+          } else if ('sup' in entity) {
            var responses = ['just hangin out', 'just chillin', 'not much', 'dank memes', 'my chances of being funded']
            var reply = responses[Math.floor(Math.random()*responses.length)];
            $('#r').append(reply)

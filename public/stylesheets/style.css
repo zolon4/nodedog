@@ -106,7 +106,7 @@ text-align: center;
 }
 
 h1 {
- margin-top: 10%;
+ margin-top: 13%;
  color: #A0DDE6;
  text-align: center;
  font-size: 60px;
@@ -131,6 +131,7 @@ h4 {
  width: 60%;
 }
  h1 {
+  margin-top: 20%;
   font-size: 50px;
  }
  h4 {
@@ -147,6 +148,7 @@ h4 {
  }
 
  h1 {
+  margin-top: 30%;
   font-size: 40px;
  }
  .form-control::-webkit-input-placeholder, .form-control {
