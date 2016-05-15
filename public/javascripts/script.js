@@ -31,7 +31,8 @@ $(document).ready(function() {
      dataType : 'jsonp',
      method: "POST",
      success: function(response) {
-      var entity = response.outcomes[0].entities
+      console.log(response)
+      var entity = response.entities
       console.log(response)
        if ('meme' in entity) {
         $.ajax({
@@ -48,7 +49,7 @@ $(document).ready(function() {
          }
         })
      } else if ('play' in entity && 'artist' in entity) {
-      var artist = response.outcomes[0].entities.artist[0].value
+      var artist = response.entities.artist[0].value
       $.ajax({
        method: "GET",
        url:"https://api.spotify.com/v1/search?q="+ artist +"&type=artist"
@@ -75,15 +76,16 @@ $(document).ready(function() {
 
      }
      else if ('contact' in entity) {
-       var contactVal = response.outcomes[0].entities.contact[0].value
+       var contactVal = response.entities.contact[0].value
        $('#r').append('Hello ' + contactVal + '! I am updog')
 
      } else if ('location' in entity){
-       var city = response.outcomes[0].entities.location[0].value
+       var city = response.entities.location[0].body
         $.ajax({
            method: "GET",
            url: "https://maps.googleapis.com/maps/api/geocode/json?address="+ city+"&key=AIzaSyAHAR1gTNA7hxRl3zOMpWZswWJuAc0Idi4"
           }).done(function(response){
+           console.log(response)
            var lat = response.results[0].geometry.location.lat
            var lng = response.results[0].geometry.location.lng
            var city = response.results[0].formatted_address
