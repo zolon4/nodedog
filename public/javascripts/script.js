@@ -26,7 +26,7 @@ $(document).ready(function() {
      url: "https://api.wit.ai/message" ,
      data: {
       'q' : q,
-      'access_token' : '5OCANSDN37ESNPMEARLQ6KDYNGTM355X'
+      'access_token' : 'BNBJTHB2WNBTZMSGVG7C4V5BBTQL5LJD'
      },
      dataType : 'jsonp',
      method: "POST",
