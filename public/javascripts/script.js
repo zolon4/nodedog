@@ -76,7 +76,8 @@ $(document).ready(function() {
 
      }
      else if ('contact' in entity) {
-       var contactVal = response.entities.contact[0].value.value
+      console.log(response)
+       var contactVal = response.entities.contact[0].value
        $('#r').append('Hello ' + contactVal + '! I am updog')
 
      } else if ('location' in entity){
