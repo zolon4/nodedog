@@ -31,9 +31,7 @@ $(document).ready(function() {
      dataType : 'jsonp',
      method: "POST",
      success: function(response) {
-      console.log(response)
       var entity = response.entities
-      console.log(response)
        if ('meme' in entity) {
         $.ajax({
          method: "GET",
@@ -76,14 +74,12 @@ $(document).ready(function() {
 
      }
      else if ('contact' in entity) {
-      console.log(response)
        var contactVal = response.entities.contact[0].value
        $('#r').append('Hello ' + contactVal + '! I am updog')
 
      } else if ('location' in entity){
 
        var city = response.entities.location[0].value
-       console.log(city)
         $.ajax({
            method: "GET",
            url: "https://maps.googleapis.com/maps/api/geocode/json?address="+ city+"&key=AIzaSyAHAR1gTNA7hxRl3zOMpWZswWJuAc0Idi4"
