@@ -81,12 +81,14 @@ $(document).ready(function() {
        $('#r').append('Hello ' + contactVal + '! I am updog')
 
      } else if ('location' in entity){
-       var city = response.entities.location[0].body
+
+       var city = response.entities.location[0].value
+       console.log(city)
         $.ajax({
            method: "GET",
            url: "https://maps.googleapis.com/maps/api/geocode/json?address="+ city+"&key=AIzaSyAHAR1gTNA7hxRl3zOMpWZswWJuAc0Idi4"
           }).done(function(response){
-           console.log(response)
+
            var lat = response.results[0].geometry.location.lat
            var lng = response.results[0].geometry.location.lng
            var city = response.results[0].formatted_address
