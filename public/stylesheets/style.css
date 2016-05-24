@@ -38,7 +38,9 @@ justify-content: center;
 #form {
  opacity: 0;
  margin-top: 200px;
+
 }
+
 
 .helpers {
  display: inline-block;
@@ -68,10 +70,13 @@ justify-content: center;
  background-color: transparent;
  border-color: white;
  border-width: 2px;
+
+
 }
-.form-control:focus {
- border-color: #F6F7F8;
-}
+
+
+
+
 
 #r {
 text-align: center;

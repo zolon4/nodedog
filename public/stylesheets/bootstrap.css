@@ -1895,7 +1895,6 @@ pre code {
 }
 
 .form-control:focus {
-  border-color: #66afe9;
   outline: none;
 }
 

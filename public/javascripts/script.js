@@ -26,8 +26,9 @@ $(document).ready(function() {
      url: "https://api.wit.ai/message" ,
      data: {
       'q' : q,
-      'access_token' : 'BNBJTHB2WNBTZMSGVG7C4V5BBTQL5LJD'
+      'access_token' : '5OCANSDN37ESNPMEARLQ6KDYNGTM355X'
      },
+
      dataType : 'jsonp',
      method: "POST",
      success: function(response) {
@@ -46,6 +47,7 @@ $(document).ready(function() {
           $('#r').append('<img src="' + src+ '" class="heboot"/ >')
          }
         })
+        
      } else if ('play' in entity && 'artist' in entity) {
       var artist = response.entities.artist[0].value
       $.ajax({
