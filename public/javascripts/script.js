@@ -2,7 +2,7 @@ $(function(){
 
 $(document).ready(function() {
  $("#form").animate({ marginTop: 0, opacity: 1 }, 1000, function(){
-  var helpers = ['try asking for "the weather in austin"', 'try "hello"', 'try "its dat boi"']
+  var helpers = ['try asking for the "weather in austin"', 'try "hello"', 'try "its dat boi"']
   var helper = helpers[Math.floor(Math.random()*helpers.length)]
   $('.helpers').append('<small class="text-muted">'+ helper + '</small>')
   $('.helpers').animate({opacity: 1},1500)
@@ -32,6 +32,7 @@ $(document).ready(function() {
      dataType : 'jsonp',
      method: "POST",
      success: function(response) {
+      console.log(response)
       var entity = response.entities
        if ('meme' in entity) {
         $.ajax({
@@ -47,7 +48,7 @@ $(document).ready(function() {
           $('#r').append('<img src="' + src+ '" class="heboot"/ >')
          }
         })
-        
+
      } else if ('play' in entity && 'artist' in entity) {
       var artist = response.entities.artist[0].value
       $.ajax({
@@ -79,7 +80,33 @@ $(document).ready(function() {
        var contactVal = response.entities.contact[0].value
        $('#r').append('Hello ' + contactVal + '! I am updog')
 
-     } else if ('location' in entity){
+     } else if ('tomorrow_' in entity && 'location' in entity ) {
+     var city = response.entities.location[0].value
+      $.ajax({
+         method: "GET",
+         url: "https://maps.googleapis.com/maps/api/geocode/json?address="+ city+"&key=AIzaSyAHAR1gTNA7hxRl3zOMpWZswWJuAc0Idi4"
+        }).done(function(response){
+
+         var lat = response.results[0].geometry.location.lat
+         var lng = response.results[0].geometry.location.lng
+         var city = response.results[0].formatted_address
+
+         $.ajax({
+          method: "GET",
+          dataType: 'jsonp',
+          url: "https://api.forecast.io/forecast/393009429e2d58513731179ff376b6ce/"+lat+"," +lng
+         }).done(function(response){
+          console.log(response)
+          var summary = response.daily.data[0].summary
+          var max = response.daily.data[0].apparentTemperatureMax
+          var min = response.daily.data[0].apparentTemperatureMin
+          $('#weather').append('A high of '+ max + '&deg; with a low of ' + min +'&deg;. ' + summary)
+
+
+          })
+         })
+    }
+     else if ('location' in entity){
 
        var city = response.entities.location[0].value
         $.ajax({
@@ -96,6 +123,7 @@ $(document).ready(function() {
             dataType: 'jsonp',
             url: "https://api.forecast.io/forecast/393009429e2d58513731179ff376b6ce/"+lat+"," +lng
            }).done(function(response){
+            console.log(response)
              var temp = response.currently.apparentTemperature
              $('#r').append("It's " + temp + "&deg; in " + city)
             })
