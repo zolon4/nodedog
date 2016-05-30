@@ -2,7 +2,7 @@ $(function(){
 
 $(document).ready(function() {
  $("#form").animate({ marginTop: 0, opacity: 1 }, 1000, function(){
-  var helpers = ['try asking for the "weather in austin"', 'try "hello"', 'try "its dat boi"']
+  var helpers = ['try asking for the "weather in austin"', 'try "hello"', 'try "its dat boi"', 'try "play mac demarco"']
   var helper = helpers[Math.floor(Math.random()*helpers.length)]
   $('.helpers').append('<small class="text-muted">'+ helper + '</small>')
   $('.helpers').animate({opacity: 1},1500)
@@ -29,11 +29,9 @@ $(document).ready(function() {
       'q' : q,
       'access_token' : '5OCANSDN37ESNPMEARLQ6KDYNGTM355X'
      },
-
      dataType : 'jsonp',
      method: "POST",
      success: function(response) {
-      console.log(response)
       var entity = response.entities
        if ('meme' in entity) {
         $.ajax({
@@ -43,7 +41,6 @@ $(document).ready(function() {
           var memes = response.data.children
           var meme = memes[Math.floor(Math.random()*memes.length)];
           var src = meme.data.url
-          console.log(meme)
           $('#meme').append("here's a selection from the frontpage of me_irl")
           $("html, body").animate({ scrollTop: $(document).height() }, 2000);
           $('#r').append('<img src="' + src+ '" class="heboot"/ >')
@@ -57,7 +54,7 @@ $(document).ready(function() {
        url:"https://api.spotify.com/v1/search?q="+ artist +"&type=artist"
       }).done(function(res){
        var uri = res.artists.items[0].uri
-        $('#r').css("margin-top", "1%")
+        $('#r').css("margin-top", "-20px")
         $('#pic').append('<iframe src="https://embed.spotify.com/?uri=' + uri+ '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>')
       })
       } else if ('datboi' in entity) {
@@ -66,8 +63,7 @@ $(document).ready(function() {
       } else if ('updog' in entity) {
        $('#r').append('not much, wbu?')
 
-      }
-      else if ('your' in entity) {
+      } else if ('your' in entity) {
        $('#r').append('I am updog')
 
       } else if ('greeting' in entity) {
@@ -76,8 +72,7 @@ $(document).ready(function() {
      } else if ('bork' in entity) {
       $('#r').append('jesus you did me the really big frighten')
 
-     }
-     else if ('contact' in entity) {
+     } else if ('contact' in entity) {
        var contactVal = response.entities.contact[0].value
        $('#r').append('Hello ' + contactVal + '! I am updog')
 
@@ -98,23 +93,18 @@ $(document).ready(function() {
           url: "https://api.forecast.io/forecast/393009429e2d58513731179ff376b6ce/"+lat+"," +lng
          }).done(function(response){
           console.log(response)
-          var summary = response.daily.data[0].summary
-          var max = response.daily.data[0].apparentTemperatureMax
-          var min = response.daily.data[0].apparentTemperatureMin
+          var summary = response.daily.data[1].summary
+          var max = response.daily.data[1].apparentTemperatureMax
+          var min = response.daily.data[1].apparentTemperatureMin
           $('#weather').append('A high of '+ max + '&deg; with a low of ' + min +'&deg;. ' + summary)
-
-
           })
          })
-    }
-     else if ('location' in entity){
-
+    } else if ('location' in entity){
        var city = response.entities.location[0].value
         $.ajax({
            method: "GET",
            url: "https://maps.googleapis.com/maps/api/geocode/json?address="+ city+"&key=AIzaSyAHAR1gTNA7hxRl3zOMpWZswWJuAc0Idi4"
           }).done(function(response){
-
            var lat = response.results[0].geometry.location.lat
            var lng = response.results[0].geometry.location.lng
            var city = response.results[0].formatted_address
@@ -130,7 +120,7 @@ $(document).ready(function() {
             })
            })
           } else if ('sup' in entity) {
-           var responses = ['just hangin out', 'just chillin', 'not much', 'dank memes', 'my chances of being funded']
+           var responses = ['just hangin out', 'just chillin', 'not much', 'eh not too much', 'not a lot']
            var reply = responses[Math.floor(Math.random()*responses.length)];
            $('#r').append(reply)
 
@@ -141,8 +131,7 @@ $(document).ready(function() {
           } else if ('song' in entity) {
            $('#r').append('I love These')
            $('#pic').append('<iframe src="https://embed.spotify.com/?uri=spotify:user:gorgonzolon:playlist:4T6FSZva3M8nZgHHNeRFi3" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>')
-          }
-          else {
+          } else {
           $('#r').append('whooops')
          }
         }
