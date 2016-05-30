@@ -21,6 +21,7 @@ $(document).ready(function() {
     $('#pic').html('')
     $('#meme').html('')
     $('#form').blur();
+    $('#weather').html('')
 
     $.ajax({
      url: "https://api.wit.ai/message" ,
