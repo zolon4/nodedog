@@ -72,17 +72,13 @@ $(document).ready(function() {
      } else if ('bork' in entity) {
       $('#r').append('jesus you did me the really big frighten')
 
-     } else if ('contact' in entity) {
-       var contactVal = response.entities.contact[0].value
-       $('#r').append('Hello ' + contactVal + '! I am updog')
-
      } else if ('tomorrow_' in entity && 'location' in entity ) {
      var city = response.entities.location[0].value
       $.ajax({
          method: "GET",
          url: "https://maps.googleapis.com/maps/api/geocode/json?address="+ city+"&key=AIzaSyAHAR1gTNA7hxRl3zOMpWZswWJuAc0Idi4"
         }).done(function(response){
-
+          console.log(city)
          var lat = response.results[0].geometry.location.lat
          var lng = response.results[0].geometry.location.lng
          var city = response.results[0].formatted_address
@@ -132,7 +128,14 @@ $(document).ready(function() {
            $('#r').append('I love These')
            $('#pic').append('<iframe src="https://embed.spotify.com/?uri=spotify:user:gorgonzolon:playlist:4T6FSZva3M8nZgHHNeRFi3" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>')
           } else {
-          $('#r').append('whooops')
+            $.ajax({
+              url: '/simSimi/' + q,
+              method: 'get',
+              success: function(data){
+                res = data.response
+                $('#r').append(res)
+              }
+            })
          }
         }
        }
