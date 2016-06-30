@@ -8,9 +8,39 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+
+router.get('/wit/:q', function(req,res,next) {
+  var q = req.params.q
+  var args = {
+    headers: {
+      "Authorization": " Bearer " + process.env.UPDOG_WIT
+    }
+  }
+  client.post(`https://api.wit.ai/message?q=${q}`, args, function(data, response) {
+    res.json(data)
+  })
+})
+
+
+router.get('/forecast/:lat,:lng', function(req,res,next){
+  var lat = req.params.lat
+  var lng = req.params.lng
+  client.get(`https://api.forecast.io/forecast/${process.env.FORECAST}/${lat},${lng}`, function(data, response) {
+    res.json(data)
+
+  })
+})
+
+router.get('/geocode/:city', function(req,res,next) {
+  var city = req.params.city
+  client.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=${process.env.GOOGLE_API}`, function(data, response){
+    res.json(data)
+
+  })
+})
 router.get('/simSimi/:text', function(req,res,next) {
   var text = req.params.text
- client.get("http://api.simsimi.com/request.p?key=" + process.env.SIMUPDOG+ "&lc=en&ft=1.0&text="+ text + "&callback=", function(data,response) {
+ client.get(`http://api.simsimi.com/request.p?key=${process.env.SIMUPDOG}&lc=en&ft=1.0&text=${text}&callback=`, function(data,response) {
    res.json(data)
  })
 })

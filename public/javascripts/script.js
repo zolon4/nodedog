@@ -24,14 +24,10 @@ $(document).ready(function() {
     $('#weather').html('')
 
     $.ajax({
-     url: "https://api.wit.ai/message" ,
-     data: {
-      'q' : q,
-      'access_token' : '5OCANSDN37ESNPMEARLQ6KDYNGTM355X'
-     },
-     dataType : 'jsonp',
-     method: "POST",
+     url: "/wit/" + q ,
+     method: "GET",
      success: function(response) {
+       console.log(response)
       var entity = response.entities
        if ('meme' in entity) {
         $.ajax({
@@ -76,19 +72,16 @@ $(document).ready(function() {
      var city = response.entities.location[0].value
       $.ajax({
          method: "GET",
-         url: "https://maps.googleapis.com/maps/api/geocode/json?address="+ city+"&key=AIzaSyAHAR1gTNA7hxRl3zOMpWZswWJuAc0Idi4"
+         url: "/geocode/" + city
         }).done(function(response){
-          console.log(city)
          var lat = response.results[0].geometry.location.lat
          var lng = response.results[0].geometry.location.lng
          var city = response.results[0].formatted_address
 
          $.ajax({
-          method: "GET",
-          dataType: 'jsonp',
-          url: "https://api.forecast.io/forecast/393009429e2d58513731179ff376b6ce/"+lat+"," +lng
+           method: "GET",
+           url: '/forecast/' +lat+ ',' + lng,
          }).done(function(response){
-          console.log(response)
           var summary = response.daily.data[1].summary
           var max = response.daily.data[1].apparentTemperatureMax
           var min = response.daily.data[1].apparentTemperatureMin
@@ -99,7 +92,7 @@ $(document).ready(function() {
        var city = response.entities.location[0].value
         $.ajax({
            method: "GET",
-           url: "https://maps.googleapis.com/maps/api/geocode/json?address="+ city+"&key=AIzaSyAHAR1gTNA7hxRl3zOMpWZswWJuAc0Idi4"
+           url: "/geocode/" + city
           }).done(function(response){
            var lat = response.results[0].geometry.location.lat
            var lng = response.results[0].geometry.location.lng
@@ -107,10 +100,8 @@ $(document).ready(function() {
 
            $.ajax({
             method: "GET",
-            dataType: 'jsonp',
-            url: "https://api.forecast.io/forecast/393009429e2d58513731179ff376b6ce/"+lat+"," +lng
+            url: '/forecast/' +lat+ ',' + lng,
            }).done(function(response){
-            console.log(response)
              var temp = response.currently.apparentTemperature
              $('#r').append("It's " + temp + "&deg; in " + city)
             })
