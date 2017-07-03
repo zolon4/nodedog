@@ -1,13 +1,11 @@
 $(function(){
 
-  $(document).ready(function() {
-    $("#form").animate({ marginTop: 0, opacity: 1 }, 1000, function(){
-      var helpers = ['try asking for the "weather in austin"', 'try "hello"', 'try "its dat boi"', 'try "play mac demarco"']
-      var helper = helpers[Math.floor(Math.random()*helpers.length)]
-      $('.helpers').append('<small class="text-muted">'+ helper + '</small>')
-      $('.helpers').animate({opacity: 1},1500)
-    })
-   })
+  $("#form").animate({ marginTop: 0, opacity: 1 }, 1000, function(){
+    var helpers = ['try asking for the "weather in austin"', 'try "hello"', 'try "its dat boi"', 'try "play mac demarco"']
+    var helper = helpers[Math.floor(Math.random()*helpers.length)]
+    $('.helpers').append('<small class="text-muted">'+ helper + '</small>')
+    $('.helpers').animate({opacity: 1},1500)
+  })
 
 
   var clear = function() {
@@ -16,6 +14,30 @@ $(function(){
     $('#meme').html('')
     $('#form').blur();
     $('#weather').html('')
+  }
+
+  var getWeather = function(args) {
+    var location = args.location
+    var day = args.tomorrow
+    console.log(day)
+    $.ajax({ method: "GET", url: "/geocode/" + location }).done(function(response){
+        var lat = response.results[0].geometry.location.lat
+        var lng = response.results[0].geometry.location.lng
+        var city = response.results[0].formatted_address
+
+        $.ajax({ method: "GET", url: '/forecast/' +lat+ ',' + lng, }).done(function(response){
+          if (dat == 0) {
+            var temp = response.currently.apparentTemperature
+            $('#r').append("It's " + temp + "&deg; in " + city)
+          } else {
+            var summary = response.daily.data[1].summary
+            var max = response.daily.data[1].apparentTemperatureMax
+            var min = response.daily.data[1].apparentTemperatureMin
+            $('#weather').append('A high of '+ max + '&deg; with a low of ' + min +'&deg;. ' + summary)
+          }
+
+        })
+    })
   }
 
  $('#form').keypress(function(e){
@@ -66,31 +88,11 @@ $(function(){
           $('#r').append('jesus you did me the really big frighten')
       } else if ('tomorrow_' in entity && 'location' in entity ) {
           var city = response.entities.location[0].value
+          getLocation({location: city, tomorrow: 1})
 
-          $.ajax({ method: "GET", url: "/geocode/" + city }).done(function(response){
-            var lat = response.results[0].geometry.location.lat
-            var lng = response.results[0].geometry.location.lng
-            var city = response.results[0].formatted_address
-
-          $.ajax({ method: "GET", url: '/forecast/' +lat+ ',' + lng }).done(function(response){
-              var summary = response.daily.data[1].summary
-              var max = response.daily.data[1].apparentTemperatureMax
-              var min = response.daily.data[1].apparentTemperatureMin
-              $('#weather').append('A high of '+ max + '&deg; with a low of ' + min +'&deg;. ' + summary)
-            })
-         })
        } else if ('location' in entity){
           var city = response.entities.location[0].value
-          $.ajax({ method: "GET", url: "/geocode/" + city }).done(function(response){
-              var lat = response.results[0].geometry.location.lat
-              var lng = response.results[0].geometry.location.lng
-              var city = response.results[0].formatted_address
-
-              $.ajax({ method: "GET", url: '/forecast/' +lat+ ',' + lng, }).done(function(response){
-                var temp = response.currently.apparentTemperature
-                $('#r').append("It's " + temp + "&deg; in " + city)
-              })
-          })
+          getLocation({location: city, tomorrow: 0})
         } else if ('sup' in entity) {
            var responses = ['just hangin out', 'just chillin', 'not much', 'eh not too much', 'not a lot']
            var reply = responses[Math.floor(Math.random()*responses.length)];
